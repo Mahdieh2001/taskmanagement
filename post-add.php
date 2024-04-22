@@ -1,3 +1,63 @@
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+<div class="alert alert-danger">
+This is an example message...
+</div>
+
+
+<script type="text/javascript">
+
+$(document).ready(function () {
+ 
+window.setTimeout(function() {
+    $(".alert").fadeTo(1000, 0).slideUp(1000, function(){
+        $(this).remove(); 
+    });
+}, 5000);
+ 
+});
+</script> -->
+
+<?php
+include 'db/conn.php';
+if(isset($_POST['submit'])){
+  $title = $_POST['title'];
+  $abstract = $_POST['abstract'];
+  $order = $_POST['order'];
+  $body = $_POST['body'];
+
+  $sql="insert into `title` (title,abstract,ordered,body)
+  values('$title','$abstract','$order','$body')";
+  $result = mysqli_query($con,$sql);
+  if($result){
+    ?>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+      <div class="alert alert-success">
+      Blog created successfully!
+      </div>
+
+
+      <script type="text/javascript">
+
+      $(document).ready(function () {
+      
+      window.setTimeout(function() {
+          $(".alert").fadeTo(1000, 0).slideUp(1000, function(){
+              $(this).remove(); 
+          });
+      }, 5000);
+      
+      });
+      </script>
+    <?php
+    // echo "Data inserted successfully";
+  }else{
+    die(mysqli_error($con));
+  }
+}  
+?>
+
 <!doctype html>
 <html lang="en" data-bs-theme="auto">
   <head><script src="assets/js/color-modes.js"></script>
@@ -107,26 +167,26 @@
   <div class="bd-example m-0 border-0">
   <h3>Blog</h3>
   <br>
-        <form>
+        <form method="post">
           <div class="mb-3">
-            <label for="title" class="form-label">Title</label>
-            <input type="text" class="form-control" id="title" name="title">
+            <label class="form-label">Title</label>
+            <input type="text" class="form-control" name="title">
           </div>
           <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">Abstract</label>
-            <input type="text" class="form-control">
+            <label class="form-label">Abstract</label>
+            <input type="text" class="form-control" name="abstract">
           </div>
           <div class="col-md-3 mb-3">
-            <label for="exampleInputPassword1" class="form-label">Order</label>
-            <input type="number" class="form-control" id="exampleInputPassword1">
+            <label class="form-label">Order</label>
+            <input type="number" class="form-control" name="order">
           </div>
           <div class="mb-3">
           <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">Body</label>
-            <textarea class="form-control" aria-label="With textarea"></textarea>
+            <label class="form-label">Body</label>
+            <textarea class="form-control" name="body"></textarea>
           </div>
           <br>
-          <button type="submit" class="btn btn-primary">Submit</button>
+          <button type="submit" class="btn btn-primary" name="submit">Submit</button>
         </form>
         
   </div>
