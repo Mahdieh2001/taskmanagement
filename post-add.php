@@ -99,7 +99,9 @@
     
   </head>
   <body class="bg-body-tertiary">
-
+      <?php
+      require_once 'db/conn.php'
+      ?>
         <div class="bd-example-snippet bd-code-snippet container my-5">
         <div class="row p-4 pb-0 pe-lg-0 pt-lg-5 align-items-center rounded-3 border shadow-lg">
   <div class="bd-example m-0 border-0">
