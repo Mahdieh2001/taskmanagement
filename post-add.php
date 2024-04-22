@@ -1,23 +1,3 @@
-<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-
-<div class="alert alert-danger">
-This is an example message...
-</div>
-
-
-<script type="text/javascript">
-
-$(document).ready(function () {
- 
-window.setTimeout(function() {
-    $(".alert").fadeTo(1000, 0).slideUp(1000, function(){
-        $(this).remove(); 
-    });
-}, 5000);
- 
-});
-</script> -->
-
 <?php
 include 'db/conn.php';
 if(isset($_POST['submit'])){
@@ -51,7 +31,6 @@ if(isset($_POST['submit'])){
       });
       </script>
     <?php
-    // echo "Data inserted successfully";
   }else{
     die(mysqli_error($con));
   }
@@ -64,9 +43,6 @@ if(isset($_POST['submit'])){
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-    <meta name="generator" content="Hugo 0.122.0">
     <title>post-add</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/cheatsheet/">
