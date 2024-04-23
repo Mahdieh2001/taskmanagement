@@ -27,13 +27,18 @@ include 'db/conn.php';
             $abstract = $row['abstract'];
             $order = $row['ordered'];
             $id = $row['id'];
-            echo '<a href="/phpprj/post-view.php?id='.$id.'" class="list-group-item list-group-item-action flex-column align-items-start">
-            <div class="d-flex w-100 justify-content-between">
-              <h5 class="mb-1">'.$order.'. '.$title.'</h5>
-            </div>
+            echo '<div " class="list-group-item list-group-item-action flex-column align-items-start">
+            <div class="">
+            <h5 class="mb-1 d-flex w-100 justify-content-between">'.$order.'. '.$title.'</h5>
             <br>
             <p class="mb-1">'.$abstract.'</p>
-          </a>';
+            </div>
+            <div class="float-end">
+            <a href="/phpprj/post-view.php?id='.$id.'"><button class="btn btn-dark rounded-pill px-3" type="button">view</button></a>
+            <a href="/phpprj/post-edit.php?id='.$id.'"><button class="btn btn-dark rounded-pill px-3 text-success" type="button">edit</button></a>
+            <a href="/phpprj/post-delete.php?id='.$id.'"><button class="btn btn-dark rounded-pill px-3 text-danger" type="button">delete</button></a>
+            </div>
+            </div>';
     }
 }
     ?>
