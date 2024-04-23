@@ -1,41 +1,5 @@
 <?php
 include 'db/conn.php';
-if(isset($_POST['submit'])){
-  $title = $_POST['title'];
-  $abstract = $_POST['abstract'];
-  $order = $_POST['order'];
-  $body = $_POST['body'];
-
-  $sql="insert into `title` (title,abstract,ordered,body)
-  values('$title','$abstract','$order','$body')";
-  $result = mysqli_query($con,$sql);
-  if($result){
-    header('location:post-list.php');
-    // ?>
-    //   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-
-    //   <div class="alert alert-success">
-    //   Blog created successfully!
-    //   </div>
-
-
-    //   <script type="text/javascript">
-
-    //   $(document).ready(function () {
-      
-    //   window.setTimeout(function() {
-    //       $(".alert").fadeTo(1000, 0).slideUp(1000, function(){
-    //           $(this).remove(); 
-    //       });
-    //   }, 5000);
-      
-    //   });
-    //   </script>
-    <?php
-  }else{
-    die(mysqli_error($con));
-  }
-}  
 ?>
 
 <!doctype html>
@@ -44,11 +8,13 @@ if(isset($_POST['submit'])){
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>post-add</title>
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.122.0">
+    <title>Blog Template · Bootstrap v5.3</title>
 
-    <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/cheatsheet/">
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/blog/">
 
-    
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
 
@@ -134,37 +100,29 @@ if(isset($_POST['submit'])){
     </style>
 
     
+    <!-- Custom styles for this template -->
+    <link href="https://fonts.googleapis.com/css?family=Playfair&#43;Display:700,900&amp;display=swap" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="blog.css" rel="stylesheet">
   </head>
-  <body class="bg-body-tertiary">
-      <?php
-      require_once 'db/conn.php'
-      ?>
-        <div class="bd-example-snippet bd-code-snippet container my-5">
-        <div class="row p-4 pb-0 pe-lg-0 pt-lg-5 align-items-center rounded-3 border shadow-lg">
-  <div class="bd-example m-0 border-0">
-  <h3>Blog</h3>
-  <br>
-        <form method="post">
-          <div class="mb-3">
-            <label class="form-label">Title</label>
-            <input type="text" class="form-control" name="title">
-          </div>
-          <div class="mb-3">
-            <label class="form-label">Abstract</label>
-            <input type="text" class="form-control" name="abstract">
-          </div>
-          <div class="col-md-3 mb-3">
-            <label class="form-label">Order</label>
-            <input type="number" class="form-control" name="order">
-          </div>
-          <div class="mb-3">
-          <div class="mb-3">
-            <label class="form-label">Body</label>
-            <textarea class="form-control" name="body"></textarea>
-          </div>
-          <br>
-          <button type="submit" class="btn btn-primary" name="submit">Submit</button>
-        </form>
-        
-  </div>
-</div>
+  <body>
+  <?php
+    $id=$_GET['id'];
+    $sql = "Select * from `title` where id=$id";
+    $result = mysqli_query($con, $sql);
+    $row = mysqli_fetch_assoc($result);
+    $title = $row['title'];
+    $abstract = $row['abstract'];
+    $body = $row['body'];
+    echo '<article class="blog-post bd-example-snippet bd-code-snippet container my-5">
+    <h2 class="display-5 link-body-emphasis mb-1">'.$title.'</h2>
+    <br>
+    <p>'.$abstract.'</p>
+    <hr>
+    <p>'.$body.'</p>
+    <br>
+    <a href="post-list.php" class="btn btn-outline-primary btn-lg active col-md-3 mb-3" role="button" aria-pressed="true">back</a>
+    </article>';
+    ?> 
+  </body>
+</html>
