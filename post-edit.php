@@ -1,13 +1,21 @@
 <?php
 include 'db/conn.php';
+$id=$_GET['id'];
+$sql="Select * from `title` where id=$id";
+$result=mysqli_query($con,$sql);
+$row=mysqli_fetch_array($result);
+$title = $row['title'];
+$abstract = $row['abstract'];
+$order = $row['ordered'];
+$body = $row['body'];
+
 if(isset($_POST['submit'])){
   $title = $_POST['title'];
   $abstract = $_POST['abstract'];
   $order = $_POST['order'];
   $body = $_POST['body'];
 
-  $sql="insert into `title` (title,abstract,ordered,body)
-  values('$title','$abstract','$order','$body')";
+  $sql="update `title` set id=$id,title='$title',abstract='$abstract',ordered=$order,body='$body' where id=$id";
   $result = mysqli_query($con,$sql);
   if($result){
     header('location:post-list.php');
@@ -147,23 +155,23 @@ if(isset($_POST['submit'])){
         <form method="post">
           <div class="mb-3">
             <label class="form-label">Title</label>
-            <input type="text" class="form-control" name="title">
+            <input type="text" class="form-control" name="title" value=<?php echo $title;?>>
           </div>
           <div class="mb-3">
             <label class="form-label">Abstract</label>
-            <input type="text" class="form-control" name="abstract">
+            <input type="text" class="form-control" name="abstract" value=<?php echo $abstract;?>>
           </div>
           <div class="col-md-3 mb-3">
             <label class="form-label">Order</label>
-            <input type="number" class="form-control" name="order">
+            <input type="number" class="form-control" name="order" value=<?php echo $order;?>>
           </div>
           <div class="mb-3">
           <div class="mb-3">
             <label class="form-label">Body</label>
-            <textarea class="form-control" name="body"></textarea>
+            <textarea class="form-control" name="body"><?php echo $body;?></textarea>
           </div>
           <br>
-          <button type="submit" class="btn btn-primary" name="submit">Submit</button>
+          <button type="submit" class="btn btn-primary" name="submit">Update</button>
         </form>
         
   </div>
