@@ -42,7 +42,7 @@ include 'db/conn.php';
             <div class="float-end">
             <a href="/phpprj/post-view.php?id='.$id.'"><button class="btn btn-dark rounded-pill px-3" type="button">view</button></a>
             <a href="/phpprj/post-edit.php?id='.$id.'"><button class="btn btn-dark rounded-pill px-3 text-success" type="button">edit</button></a>
-            <a href="/phpprj/post-edit.php?id='.$id.'"><button class="btn btn-dark rounded-pill px-3 text-danger" type="button">delete</button></a>
+            <a href="/phpprj/post-delete.php?id='.$id.'"><button class="btn btn-dark rounded-pill px-3 text-danger" type="button">delete</button></a>
             </div>
             </div>';
             }
@@ -53,7 +53,8 @@ include 'db/conn.php';
   </div>
   <!-- <script>
   function deleteconf() {
-    if (confirm("Delete this item?"==true)) {
+    if (confirm("Delete this item?")) {
+      window.location.href = "/phpprj/post-delete.php?id"
     }}
   </script> -->
   </body>
