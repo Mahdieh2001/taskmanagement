@@ -26,6 +26,7 @@ include 'db/conn.php';
             $title = $row['title'];
             $abstract = $row['abstract'];
             $order = $row['ordered'];
+            $category = $row['category'];
             $id = $row['id'];
             $image = $row['filename'];
             $deleted_at = $row['deletedat'];
@@ -34,7 +35,7 @@ include 'db/conn.php';
 
             echo '<div " class="list-group-item list-group-item-action flex-column align-items-start">
             <div class="">
-            <h5 class="mb-1 d-flex w-100 justify-content-between">'.$order.'. '.$title.'</h5>
+            <h5 class="mb-1 d-flex w-100 justify-content-between">'.$order.'. '.$title.'<small class="float-end">'.$category.'</small></h5>
             <br>
             <p class="mb-1">'.$abstract.'</p>
             <img src="uploads/'.$image.'" class="rounded mx-auto d-block" style="height: 18rem;"/>

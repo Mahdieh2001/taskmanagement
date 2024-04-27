@@ -5,12 +5,13 @@ if(isset($_POST['submit'])){
   $abstract = $_POST['abstract'];
   $order = $_POST['order'];
   $body = $_POST['body'];
+  $category = $_POST['category'];
   $file_name = $_FILES['image']['name'];
   $tempname = $_FILES['image']['tmp_name'];
   $folder = 'uploads/'.$file_name;
 
-  $sql="insert into `title` (title,abstract,ordered,body,filename)
-  values('$title','$abstract','$order','$body','$file_name')";
+  $sql="insert into `title` (title,abstract,ordered,body,filename,category)
+  values('$title','$abstract','$order','$body','$file_name','$category')";
   $result = mysqli_query($con,$sql);
   move_uploaded_file($tempname,$folder);
 
@@ -52,14 +53,20 @@ if(isset($_POST['submit'])){
     <title>post-add</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/cheatsheet/">
-
-    
-
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
 
 <link href="assets/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
+      .dropdown:hover>.dropdown-menu {
+        display: block;
+      }
+
+      .dropdown>.dropdown-toggle:active {
+        /*Without this, clicking will make it sticky*/
+          pointer-events: none;
+      }
+
       .bd-placeholder-img {
         font-size: 1.125rem;
         text-anchor: middle;
@@ -168,6 +175,26 @@ if(isset($_POST['submit'])){
             <label class="form-label">Body</label>
             <textarea class="form-control" name="body"></textarea>
           </div>
+
+          <div class="dropdown">
+          <label for="course">Category</label>
+            <select name="category" class="dropdown-menu show" aria-labelledby="dropdownMenuButton">
+            <button value="">Please select course</button>
+            <?php
+              $sql = "Select * from `category`";
+              $result = mysqli_query($con, $sql);
+              if ($result){
+                while ($row = mysqli_fetch_assoc($result)) {
+                  $category = $row['category'];
+                  echo '<option name="category" class="dropdown-item" value='.$category.'>'.$category.'</option>';
+                }
+                }
+            ?>
+            </select>
+          </div>
+          <br>
+          <br>
+          <br>
           <div class="custom-file">
             <input type="file" accept="image/jpeg" class="custom-file-input" id="image" name="image">
           </div>
