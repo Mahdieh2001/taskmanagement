@@ -42,7 +42,7 @@ include 'db/conn.php';
             <div class="float-end">
             <a href="/phpprj/post-view.php?id='.$id.'"><button class="btn btn-dark rounded-pill px-3" type="button">view</button></a>
             <a href="/phpprj/post-edit.php?id='.$id.'"><button class="btn btn-dark rounded-pill px-3 text-success" type="button">edit</button></a>
-            <a href="/phpprj/post-delete.php?id='.$id.'onclick="return confirm("Delete this page?")" class="btn btn-dark rounded-pill px-3 text-danger" type="button">delete</a>
+            <a href="/phpprj/post-edit.php?id='.$id.'"><button class="btn btn-dark rounded-pill px-3 text-danger" type="button">delete</button></a>
             </div>
             </div>';
             }
