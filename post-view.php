@@ -114,12 +114,14 @@ include 'db/conn.php';
     $title = $row['title'];
     $abstract = $row['abstract'];
     $body = $row['body'];
+    $image = $row['filename'];
     echo '<article class="blog-post bd-example-snippet bd-code-snippet container my-5">
     <h2 class="display-5 link-body-emphasis mb-1">'.$title.'</h2>
     <br>
     <p>'.$abstract.'</p>
     <hr>
-    <p>'.$body.'</p>
+    <img src="uploads/'.$image.'" class="rounded mx-auto" style="height: 18rem;"/>
+    <p><br>'.$body.'</p>
     <br>
     <a href="post-list.php" class="btn btn-outline-primary btn-lg active col-md-3 mb-3" role="button" aria-pressed="true">back</a>
     </article>';

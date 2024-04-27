@@ -8,14 +8,20 @@ $title = $row['title'];
 $abstract = $row['abstract'];
 $order = $row['ordered'];
 $body = $row['body'];
+$pic = $row['filename'];
 
 if(isset($_POST['submit'])){
   $title = $_POST['title'];
   $abstract = $_POST['abstract'];
   $order = $_POST['order'];
   $body = $_POST['body'];
+  $file_name = $_FILES['image']['name'];
+  $tempname = $_FILES['image']['tmp_name'];
+  $folder = 'uploads/'.$file_name;
+  move_uploaded_file($tempname,$folder);
+  
 
-  $sql="update `title` set id=$id,title='$title',abstract='$abstract',ordered=$order,body='$body' where id=$id";
+  $sql="update `title` set id=$id,title='$title',abstract='$abstract',ordered=$order,body='$body',filename='$file_name' where id=$id";
   $result = mysqli_query($con,$sql);
   if($result){
     header('location:post-list.php');
@@ -52,7 +58,7 @@ if(isset($_POST['submit'])){
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>post-add</title>
+    <title>post-edit</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/cheatsheet/">
 
@@ -148,11 +154,12 @@ if(isset($_POST['submit'])){
       require_once 'db/conn.php'
       ?>
         <div class="bd-example-snippet bd-code-snippet container my-5">
+        <a href="post-list.php" class="btn btn-outline-primary btn-lg active col-md-3 mb-3" role="button" aria-pressed="true">Blog List</a>
         <div class="row p-4 pb-0 pe-lg-0 pt-lg-5 align-items-center rounded-3 border shadow-lg">
   <div class="bd-example m-0 border-0">
   <h3>Blog</h3>
   <br>
-        <form method="post">
+        <form method="post" enctype="multipart/form-data">
           <div class="mb-3">
             <label class="form-label">Title</label>
             <input type="text" class="form-control" name="title" value=<?php echo $title;?>>
@@ -169,6 +176,13 @@ if(isset($_POST['submit'])){
           <div class="mb-3">
             <label class="form-label">Body</label>
             <textarea class="form-control" name="body"><?php echo $body;?></textarea>
+            <br>
+            <img src="uploads/<?php echo $pic;?>" class="rounded mx-auto" style="height: 18rem;"/>
+            <br>
+            <br>
+            <div class="custom-file">
+            <input type="file" accept="image/jpeg" class="custom-file-input" id="image" name="image">
+            </div>
           </div>
           <br>
           <button type="submit" class="btn btn-primary" name="submit">Update</button>

@@ -27,22 +27,34 @@ include 'db/conn.php';
             $abstract = $row['abstract'];
             $order = $row['ordered'];
             $id = $row['id'];
+            $image = $row['filename'];
+            $deleted_at = $row['deletedat'];
+
+            if ($deleted_at == null) {
+
             echo '<div " class="list-group-item list-group-item-action flex-column align-items-start">
             <div class="">
             <h5 class="mb-1 d-flex w-100 justify-content-between">'.$order.'. '.$title.'</h5>
             <br>
             <p class="mb-1">'.$abstract.'</p>
+            <img src="uploads/'.$image.'" class="rounded mx-auto d-block" style="height: 18rem;"/>
             </div>
             <div class="float-end">
             <a href="/phpprj/post-view.php?id='.$id.'"><button class="btn btn-dark rounded-pill px-3" type="button">view</button></a>
             <a href="/phpprj/post-edit.php?id='.$id.'"><button class="btn btn-dark rounded-pill px-3 text-success" type="button">edit</button></a>
-            <a href="/phpprj/post-delete.php?id='.$id.'"><button class="btn btn-dark rounded-pill px-3 text-danger" type="button">delete</button></a>
+            <a href="/phpprj/post-delete.php?id='.$id.'onclick="return confirm("Delete this page?")" class="btn btn-dark rounded-pill px-3 text-danger" type="button">delete</a>
             </div>
             </div>';
+            }
     }
 }
     ?>
 </div>
   </div>
+  <!-- <script>
+  function deleteconf() {
+    if (confirm("Delete this item?"==true)) {
+    }}
+  </script> -->
   </body>
 </html>
