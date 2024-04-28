@@ -8,7 +8,6 @@ $title = $row['title'];
 $abstract = $row['abstract'];
 $order = $row['ordered'];
 $body = $row['body'];
-$category = $row['category'];
 $pic = $row['filename'];
 
 if(isset($_POST['submit'])){
@@ -19,11 +18,26 @@ if(isset($_POST['submit'])){
   $file_name = $_FILES['image']['name'];
   $tempname = $_FILES['image']['tmp_name'];
   $folder = 'uploads/'.$file_name;
-  $category = $row['category'];
   move_uploaded_file($tempname,$folder);
   
+  if ($file_name){
+    $sql="update `title` set id=$id,title='$title',abstract='$abstract',ordered=$order,body='$body',filename='$file_name' where id=$id";
+    $result = mysqli_query($con,$sql);
+    if($result){
+      header('location:post-list.php');
+    }else{
+      die(mysqli_error($con));
+    }
+  }else{$sql="update `title` set id=$id,title='$title',abstract='$abstract',ordered=$order,body='$body' where id=$id";
+    $result = mysqli_query($con,$sql);
+    if($result){
+      header('location:post-list.php');
+    }else{
+      die(mysqli_error($con));
+    }
 
-  $sql="update `title` set id=$id,title='$title',abstract='$abstract',ordered=$order,body='$body',filename='$file_name',category='$category' where id=$id";
+
+  $sql="update `title` set id=$id,title='$title',abstract='$abstract',ordered=$order,body='$body',filename='$file_name' where id=$id";
   $result = mysqli_query($con,$sql);
   if($result){
     header('location:post-list.php');
@@ -51,7 +65,7 @@ if(isset($_POST['submit'])){
   }else{
     die(mysqli_error($con));
   }
-}  
+}}  
 ?>
 
 <!doctype html>
@@ -182,9 +196,8 @@ if(isset($_POST['submit'])){
             <img src="uploads/<?php echo $pic;?>" class="rounded mx-auto" style="height: 18rem;"/>
             <br>
             <br>
-            
             <div class="custom-file">
-            <input type="file" accept="image/jpeg" class="custom-file-input" id="image" name="image">
+            <input value="<?php $folder ?>" type="file" accept="image/jpeg" class="custom-file-input" id="image" name="image">
             </div>
           </div>
           <br>

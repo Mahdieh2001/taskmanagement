@@ -15,8 +15,25 @@ include 'db/conn.php';
 <link href="assets/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
   <body class="bg-body-tertiary">
-  <div class="bd-example m-0 border-0 my-5 row p-4 pb-0 pe-lg-0 pt-lg-5 align-items-center rounded-3">
+  <div class="bd-example m-0 border-0 my-5 row p-4 pb-0 pe-lg-0 pt-lg-5 align-items-center rounded-3"> 
   <a href="post-add.php" class="btn btn-outline-primary btn-lg active col-md-3 mb-3" role="button" aria-pressed="true">Add Blog</a>
+  <div class="dropdown col-md-3 mb-3">
+    <select name="category" class="dropdown-menu show" aria-labelledby="dropdownMenuButton">
+      <button value="">Please select course</button>
+      <?php
+        $sql = "Select * from `category`";
+        $result = mysqli_query($con, $sql);
+        if ($result){
+          while ($row = mysqli_fetch_assoc($result)) {
+            $category = $row['category'];
+            echo '<option name="category" class="dropdown-item" value='.$category.'>'.$category.'</option>';
+          }
+        }
+      ?>
+    </select>
+    <br>
+    <br>
+  </div>
   <div class="list-group">
     <?php
     $sql = "Select * from `title`";
@@ -55,7 +72,7 @@ include 'db/conn.php';
   <!-- <script>
   function deleteconf() {
     if (confirm("Delete this item?")) {
-      window.location.href = "/phpprj/post-delete.php?id"
+      window.location.href = "/phpprj/post-delete.php?id=$id"
     }}
   </script> -->
   </body>
