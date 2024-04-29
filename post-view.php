@@ -108,18 +108,18 @@ include 'db/conn.php';
   <body>
   <?php
     $id=$_GET['id'];
-    $sql = "Select * from `title` where id=$id";
+    $sql = "Select `title`.*,`category`.`category_name` from `title` left join `category` on `title`.`category_id`=`category`.`id` where `title`.`id`=$id";
     $result = mysqli_query($con, $sql);
     $row = mysqli_fetch_assoc($result);
     $title = $row['title'];
     $abstract = $row['abstract'];
     $body = $row['body'];
-    $category = $row['category'];
+    $category_name = $row['category_name'];
     $image = $row['filename'];
     echo '<article class="blog-post bd-example-snippet bd-code-snippet container my-5">
     <h2 class="display-5 link-body-emphasis mb-1">'.$title.'</h2>
     <br>
-    <p>'.$abstract.'<small class="float-end">'.$category.'</small></p>
+    <p>'.$abstract.'<small class="float-end">'.$category_name.'</small></p>
     <hr>
     <img src="uploads/'.$image.'" class="rounded mx-auto" style="height: 18rem;"/>
     <p><br>'.$body.'</p>

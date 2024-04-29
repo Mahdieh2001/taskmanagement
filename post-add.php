@@ -5,13 +5,14 @@ if(isset($_POST['submit'])){
   $abstract = $_POST['abstract'];
   $order = $_POST['order'];
   $body = $_POST['body'];
-  $category = $_POST['category'];
+  $category_id = $_POST['category_id'];
+
   $file_name = $_FILES['image']['name'];
   $tempname = $_FILES['image']['tmp_name'];
   $folder = 'uploads/'.$file_name;
 
-  $sql="insert into `title` (title,abstract,ordered,body,filename,category)
-  values('$title','$abstract','$order','$body','$file_name','$category')";
+  $sql="insert into `title` (title,abstract,ordered,body,filename,category_id)
+  values('$title','$abstract','$order','$body','$file_name','$category_id')";
   $result = mysqli_query($con,$sql);
   move_uploaded_file($tempname,$folder);
 
@@ -160,7 +161,7 @@ if(isset($_POST['submit'])){
         <form method="post" enctype="multipart/form-data">
           <div class="mb-3">
             <label class="form-label">Title</label>
-            <input type="text" class="form-control" name="title">
+            <input required type="text" class="form-control" name="title">
           </div>
           <div class="mb-3">
             <label class="form-label">Abstract</label>
@@ -171,22 +172,21 @@ if(isset($_POST['submit'])){
             <input type="number" class="form-control" name="order">
           </div>
           <div class="mb-3">
-          <div class="mb-3">
             <label class="form-label">Body</label>
             <textarea class="form-control" name="body"></textarea>
           </div>
 
           <div class="dropdown">
-          <label for="course">Category</label>
-            <select name="category" class="dropdown-menu show" aria-labelledby="dropdownMenuButton">
-            <button value="">Please select course</button>
+          <label for="category">Category</label>
+            <select name="category_id" class="dropdown-menu show" aria-labelledby="dropdownMenuButton">
             <?php
               $sql = "Select * from `category`";
               $result = mysqli_query($con, $sql);
               if ($result){
                 while ($row = mysqli_fetch_assoc($result)) {
-                  $category = $row['category'];
-                  echo '<option name="category" class="dropdown-item" value='.$category.'>'.$category.'</option>';
+                  $category_name = $row['category_name'];
+                  $category_id = $row['id'];
+                  echo '<option name="'.$category_id.'" class="dropdown-item" value='.$category_id.'>'.$category_name.'</option>';
                 }
                 }
             ?>

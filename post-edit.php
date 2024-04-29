@@ -9,6 +9,7 @@ $abstract = $row['abstract'];
 $order = $row['ordered'];
 $body = $row['body'];
 $pic = $row['filename'];
+$cat_id = $row['category_id'];
 
 if(isset($_POST['submit'])){
   $title = $_POST['title'];
@@ -196,10 +197,36 @@ if(isset($_POST['submit'])){
             <img src="uploads/<?php echo $pic;?>" class="rounded mx-auto" style="height: 18rem;"/>
             <br>
             <br>
+            
             <div class="custom-file">
             <input value="<?php $folder ?>" type="file" accept="image/jpeg" class="custom-file-input" id="image" name="image">
             </div>
           </div>
+          <br>
+          <hr>
+          <div class="dropdown">
+          <label for="course">Category</label>
+            <select name="category" class="dropdown-menu show" aria-labelledby="dropdownMenuButton">
+            <option value="0">Please select course</option>
+            <?php
+              $sql = "Select * from `category`";
+              $result = mysqli_query($con, $sql);
+              if ($result){
+                while ($row = mysqli_fetch_assoc($result)) {
+                  $category = $row['category'];
+                  $category_id = $row['id'];
+                  if($category_id==$cat_id){
+                    $selected_text = 'selected';
+                  }else{
+                    $selected_text = '';
+                  }
+                  echo '<option name="category" class="dropdown-item" value="'.$category_id.'" '.$selected_text.' >'.$category.'</option>';
+                }
+                }
+            ?>
+            </select>
+          </div>
+          <br>
           <br>
           <button type="submit" class="btn btn-primary" name="submit">Update</button>
         </form>
